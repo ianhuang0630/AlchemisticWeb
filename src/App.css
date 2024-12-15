@@ -1,3 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Quantico');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+h1{
+  font-family: "Quantico";
+  font-size: 4vw;
+}
+
+h2 {
+  font-family: "Quantico";
+  font-size: 2.5vw;
+}
+
+h3{
+  font-family: "Lato"
+}
+
+h4{
+  font-family: "Lato"
+}
+
+.button-text{
+  font-family:"Quantico"
+}
+
+.longform{
+  font-family: "Lato";
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +64,201 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.infotext-dark{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.navbar{
+  display: flex;
+  width: 100%;
+  padding: 30px;
+}
+.company-name{
+  width: 30%;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: 'Quantico';
+  margin-left: 15px;
+  font-weight: 800;
+  font-size: min(4vw, 30px);
+}
+
+.web-logo{
+  width: 50px;
+}
+
+.center{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.section-tabs{
+  width: 80%;
+  /* font-family: 'Poppins', sans-serif; */
+  font-weight: 500;
+  margin-top: auto;
+  text-align: right;
+  margin-bottom: auto;
+}
+
+
+.main-content{
+  width: max(60%, 380px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  margin-bottom:150px;
+  align-items: center;
+  text-align: center;
+}
+
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.demo-3{
+  /* background: rgb(238,174,202); */
+  /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
+  /* background-size: 400%, 400%; */
+  /* animation: gradient-animation 10s ease infinite; */
+  border-radius: 10px;
+  padding: 30px;
+  margin: 30px;
+}
+
+.demo-1{
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, #D3420D 0%, #F2B202 100%);
+  background-size: 400%, 400%;
+  animation: gradient-animation 10s ease infinite;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 30px;
+  text-align: center;
+}
+
+.demo-2{
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background-size: 400%, 400%;
+  animation: gradient-animation 10s ease infinite;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 30px;
+  text-align: center;
+}
+
+.banner-video{
+  width: 70%;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.video-sample{
+  margin-top:40px;
+  margin-bottom:40px;
+}
+
+.video-container{
+  display:flex;
+  flex-wrap: nowrap;
+  flex-direction: row;    
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  gap: 10px;
+  padding: 10px;
+  width: max(80%, 380px) ;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+
+}
+
+.video-container-element{
+  height: auto;
+  
+}
+
+.video{
+  border-radius: 10px; 
+}
+
+
+.caption{
+  text-align: center;
+  margin-left: 180px;
+  margin-right: 180px;
+}
+
+
+
+.grad-text{
+  /* font-size: 72px; */
+  background: radial-gradient(circle, #D3420D 0%, #F2B202 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.call-action{
+  position:relative;
+  background: #A4B0F5;
+  /* height:200px; */
+  color: white;
+  padding: 60px;
+}
+
+.floating-image {
+  position: absolute; /* Positions the image relative to the .call-action container */
+  top: 50%; 
+  /* Vertically centers the image */
+  right: -50px; /* Moves the image offscreen to the right */
+  transform: translateY(-30%) rotate(-10deg); 
+  /* Correctly centers the image vertically */
+  width: 300px; /* Adjust the image size as needed */
+  pointer-events: none; /* Makes the image unclickable */
+}
+
+
+.tail{
+  background: #273043;
+  padding: 80px;
+  /* height:200px; */
+  color: white;
+  text-align: center;
+}
+
+
+.benefits{
+  display: flex;
+  justify-content: center;
+  align-content: center; 
+  gap: 40px;
+  /* background: green; */
+}
+
+.benefit{
+  flex: 1;
+  /* background: greenyellow;  */
+}
+.whole{
+ 
+}
+.three-tabs{
+  /* background: yellowgreen; */
 }
