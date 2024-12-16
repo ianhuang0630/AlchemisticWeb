@@ -6,27 +6,46 @@ import { ConfigProvider } from 'antd';
 import { BsJoystick, BsLayoutWtf, BsLightning } from "react-icons/bs";
 
 
-
 function Navbar(props) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const tabs = props.item2onClick.map(function (d, idx) {
-          return (<a onClick={d[1]}> {d[0]} </a>);
+    return (<a onClick={d[1]}> {d[0]} </a>);
   })
   const space_tabs = tabs.map((e, i) => {
-      if (i < (tabs.length - 1))
-          return [e, <span className="spacer"> | </span>];
-      else
-          return [e];
+    if (i < (tabs.length - 1))
+      return [e, <span className="spacer"> | </span>];
+    else
+      return [e];
   }).flat();
 
-  return <div className="infotext-dark navbar">
-      <img className="web-logo" src="assets/logo.svg" alt="logo" />
-      {window.innerWidth > 600? <div className="company-name">
+  return (
+    <div className={`infotext-dark navbar ${isScrolled ? 'navbar-shadow' : ''}`}>
+      <img className="web-logo" src={process.env.PUBLIC_URL + "/assets/logo.svg"} alt="logo" />
+      {window.innerWidth > 600 ? <div className="company-name">
         {props.company_name}
       </div> : null}
       <div className="section-tabs" >
-          {space_tabs}
+        {space_tabs}
       </div>
-      </div>
+    </div>
+  );
 }
 
 const EmailCollectionModal = ({ isVisible, onClose, onSubmit }) => {
@@ -255,7 +274,7 @@ function VideoPlayer({ src }) {
     <video 
       ref={videoRef}
       className="video" 
-      src={src} 
+      src={process.env.PUBLIC_URL + src} 
       width="100%" 
       muted
       playsInline
@@ -326,13 +345,13 @@ function App() {
         <div className="demo-1">
           <div className="video-container" id="shoe-instance-container">
             <div className="video-container-element">
-              <VideoPlayer src="assets/nike_ice_0000-0100.mp4" />
+              <VideoPlayer src="/assets/nike_ice_0000-0100.mp4" />
             </div>
             <div className="video-container-element">
-              <VideoPlayer src="assets/nike_metal_0000-0100.mp4" />
+              <VideoPlayer src="/assets/nike_metal_0000-0100.mp4" />
             </div>
             <div className="video-container-element">
-              <VideoPlayer src="assets/nike_sun_0000-0100.mp4" />
+              <VideoPlayer src="/assets/nike_sun_0000-0100.mp4" />
             </div>
           </div>
         </div>
@@ -341,15 +360,15 @@ function App() {
         <div className="demo-1">
           <div class="video-container" id="shoe-instance-container">
             <div class="video-container-element">
-              <video class="video" src="assets/nike_ice_0000-0100.mp4" width="100%" autoPlay muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/nike_ice_0000-0100.mp4'} width="100%" autoPlay muted>
               </video>
             </div>
             <div class="video-container-element">
-              <video class="video" src="assets/nike_metal_0000-0100.mp4" width="100%" autoPlay muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/nike_metal_0000-0100.mp4'} width="100%" autoPlay muted>
               </video>
             </div>
             <div class="video-container-element">
-              <video class="video" src="assets/nike_sun_0000-0100.mp4" width="100%" autoPlay muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/nike_sun_0000-0100.mp4'} width="100%" autoPlay muted>
               </video>
             </div>
           </div>
@@ -380,7 +399,7 @@ function App() {
         <div className="demo-2">
           <div class="video-container">
             <div class="video-container-element">
-              <video class="video" src="assets/car_tunnel.mp4" width="100%" autoPlay loop muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/car_tunnel.mp4'} width="100%" autoPlay loop muted>
               </video> 
             </div>
           </div>
@@ -447,7 +466,7 @@ function App() {
                 children:  <div>
         <div class="video-container">
             <div class="video-container-element">
-              <video class="video" src="assets/face_anim.mp4" width="100%" autoPlay loop muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/face_anim.mp4'} width="100%" autoPlay loop muted>
               </video> 
             </div>
           </div>
@@ -460,7 +479,7 @@ function App() {
           
           <div class="video-container">
             <div class="video-container-element" >
-              <video class="video" src="assets/lighting_lotion.mp4" width="100%" autoPlay loop muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/lighting_lotion.mp4'} width="100%" autoPlay loop muted>
               </video> 
             </div>
           </div>   
@@ -472,7 +491,7 @@ function App() {
                   
           <div class="video-container">
             <div class="video-container-element">
-              <video class="video" src="assets/katanas_animation.mp4" width="100%" autoPlay loop muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/katanas_animation.mp4'} width="100%" autoPlay loop muted>
               </video> 
             </div>
           </div>
@@ -489,7 +508,7 @@ function App() {
 
         <div class="video-container">
             <div class="video-container-element">
-              <video class="video" src="assets/roses_blooming.mp4" width="100%" autoPlay loop muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/roses_blooming.mp4'} width="100%" autoPlay loop muted>
               </video> 
             </div>
           </div>
@@ -508,7 +527,7 @@ function App() {
               Ready to get more out of your 3D assets?
             </h2>
             <WhiteBlackButton text="Request a demo" onClick={handleDemoRequest}  />
-            {/* <img class="floating-image" src="assets/ba.png" alt="3D Asset" /> */}
+            {/* <img class="floating-image" src={process.env.PUBLIC_URL + '/assets/ba.png'} alt="3D Asset" /> */}
         </div>
         
         <div class="tail">

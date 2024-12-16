@@ -74,11 +74,34 @@ h4{
   margin-top: 0px;
   margin-bottom: 0px;
 }
-.navbar{
+
+.navbar-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: white;
+  transition: box-shadow 0.3s ease;
   display: flex;
+  justify-content: space-between; /* Add this to space items properly */
+  align-items: center; /* Add this to vertically center items */
   width: 100%;
   padding: 30px;
+  box-sizing: border-box; /* Add this to include padding in width calculation */
 }
+
+/* Add specific styling for the demo button if needed */
+.demo-button {
+  margin-right: 20px; /* Add some margin to prevent it from touching the edge */
+}
+
+
 .company-name{
   width: 30%;
   margin-top: auto;
