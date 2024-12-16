@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Tabs } from "antd";
 import { ConfigProvider } from 'antd';
-import { BsJoystick, BsController, BsLayoutWtf, BsLightning } from "react-icons/bs";
+import { BsJoystick, BsLayoutWtf, BsLightning } from "react-icons/bs";
 
 
 
@@ -30,6 +29,88 @@ function Navbar(props) {
       </div>
 }
 
+const EmailCollectionModal = ({ isVisible, onClose, onSubmit }) => {
+  const [email, setEmail] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const handleSubmit = () => {
+    if (validateEmail(email)) {
+      onSubmit(email);
+      setEmail('');
+      setIsValidEmail(true);
+      onClose();
+    } else {
+      setIsValidEmail(false);
+    }
+  };
+
+  if (!isVisible) return null;
+
+  const modalStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000
+  };
+
+  const contentStyle = {
+    backgroundColor: 'white',
+    padding: '30px',
+    borderRadius: '12px',
+    width: '90%',
+    maxWidth: '400px'
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '10px',
+    marginTop: '20px',
+    marginBottom: '10px',
+    borderRadius: '6px',
+    border: '1px solid ' + (isValidEmail ? '#ddd' : 'red')
+  };
+
+  const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '10px',
+    marginTop: '20px'
+  };
+  
+  return (
+    <div style={modalStyle} onClick={onClose}>
+      <div style={contentStyle} onClick={e => e.stopPropagation()}>
+        <h2>Request a Demo</h2>
+        <p className='longform'>Please enter your email address and we'll get back to you shortly.</p>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setIsValidEmail(true);
+          }}
+          style={inputStyle}
+        />
+        {!isValidEmail && <p style={{color: 'red', margin: '5px 0'}}>Please enter a valid email address</p>}
+        <div style={buttonContainerStyle}>
+          <WhiteBlackButton text="Cancel" onClick={onClose} />
+          <BlackWhiteButton text="Submit" onClick={handleSubmit} />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 
 const WhiteBlackButton = ({ text, onClick, disabled }) => {
@@ -38,7 +119,6 @@ const WhiteBlackButton = ({ text, onClick, disabled }) => {
       color: 'black',
       border: 'none',
       padding: '10px 20px',
-      fontSize: '16px',
       cursor: disabled ? 'not-allowed' : 'pointer',
       opacity: disabled ? 0.5 : 1,
       borderRadius: '12px',
@@ -64,7 +144,6 @@ const BlackWhiteButton = ({ text, onClick, disabled }) => {
       color: 'white',
       border: 'none',
       padding: '10px 20px',
-      fontSize: '16px',
       cursor: disabled ? 'not-allowed' : 'pointer',
       opacity: disabled ? 0.5 : 1,
       borderRadius: '12px',
@@ -123,8 +202,84 @@ const Typewriter = ({ texts, fixedText, typingSpeed = 150, deletingSpeed = 100, 
 };
 
 
+function VideoPlayer({ src }) {
+  const videoRef = useRef(null);
+  const playPromiseRef = useRef(null);
+  const hasPlayedRef = useRef(false); // Track if video has played
+  
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasPlayedRef.current) {
+          // Only play if video hasn't played yet
+          playPromiseRef.current = videoRef.current.play();
+          hasPlayedRef.current = true; // Mark as played
+          if (playPromiseRef.current) {
+            playPromiseRef.current.catch(() => {
+              // Handle any play() errors silently
+            });
+          }
+        } else if (!entry.isIntersecting) {
+          // Just pause without resetting time
+          if (playPromiseRef.current) {
+            playPromiseRef.current.then(() => {
+              videoRef.current.pause();
+            }).catch(() => {
+              // Handle any errors silently
+            });
+          } else {
+            videoRef.current.pause();
+          }
+        }
+      });
+    }, options);
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <video 
+      ref={videoRef}
+      className="video" 
+      src={src} 
+      width="100%" 
+      muted
+      playsInline
+    />
+  );
+}
+
 function App() {
   const company_name = "Alchemistic"
+  
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleDemoRequest = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleEmailSubmit = (email) => {
+    // TODO: Handle email submission logic
+    console.log("Email submitted:", email);
+  };
   
   return (
 
@@ -142,10 +297,11 @@ function App() {
 
     
     <div className="whole">
+        <EmailCollectionModal isVisible={isModalVisible} onClose={handleModalClose} onSubmit={handleEmailSubmit} />
 
         {/* Banner */}
         <div className='center'>
-          <Navbar company_name={company_name} item2onClick={[[<BlackWhiteButton text="Join the waitlist" />, null]]}/>
+          <Navbar company_name={company_name} item2onClick={[[<BlackWhiteButton text="Request a demo" onClick={handleDemoRequest} />, null]]}/>
         </div>
          
 
@@ -156,7 +312,7 @@ function App() {
           <h3> 
             {company_name} turns your 3D projects into a server that automatically edits itself to fulfill your requests.
           </h3>
-          <BlackWhiteButton text="Join the waitlist" />
+          <BlackWhiteButton text="Request a demo" onClick={handleDemoRequest} />
         </div>
           
         <div className="caption">
@@ -164,7 +320,24 @@ function App() {
             What if every 3D asset is just one of <span className="grad-text"> infinite </span> variations?
           </h2>
         </div>
-        
+
+
+
+        <div className="demo-1">
+          <div className="video-container" id="shoe-instance-container">
+            <div className="video-container-element">
+              <VideoPlayer src="assets/nike_ice_0000-0100.mp4" />
+            </div>
+            <div className="video-container-element">
+              <VideoPlayer src="assets/nike_metal_0000-0100.mp4" />
+            </div>
+            <div className="video-container-element">
+              <VideoPlayer src="assets/nike_sun_0000-0100.mp4" />
+            </div>
+          </div>
+        </div>
+
+{/* 
         <div className="demo-1">
           <div class="video-container" id="shoe-instance-container">
             <div class="video-container-element">
@@ -180,7 +353,7 @@ function App() {
               </video>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="caption" > 
           <h2>
@@ -189,7 +362,7 @@ function App() {
         </div>
 
         
-        <div className="caption" style={{"marginTop": "100px"}}>
+        <div className="caption" style={{"marginTop": "30px"}}>
           <h3>
           {<Typewriter 
               fixedText={"Need to find the right variation for "}
@@ -266,7 +439,7 @@ function App() {
         </div>
 
         <div className="demo-3">
-          <Tabs defaultActiveKey="4" centered items={
+          <Tabs defaultActiveKey="1" centered items={
             [
               {
                 key: "4",
@@ -330,29 +503,12 @@ function App() {
         </div>
        
         
-    {/* 
-        <div className="demo-2">
-            <div class="banner-visual">
-              <video class="banner-video" src="assets/Banner.mp4" height="100%" autoplay="" loop="" muted=""></video> 
-            </div>
-        </div> */}
-            
-        {/* Gradient background, car demo */}
-        {/*  */}
-        
-        {/* Lighting, geometry, materials */}
-
-        
-
-        {/* Call to action - request a demo today! */}
-          
-        
         <div class="call-action">
             <h2>
               Ready to get more out of your 3D assets?
             </h2>
-            <WhiteBlackButton text="Join the waitlist" />
-            <img class="floating-image" src="assets/ba.png" alt="3D Asset" />
+            <WhiteBlackButton text="Request a demo" onClick={handleDemoRequest}  />
+            {/* <img class="floating-image" src="assets/ba.png" alt="3D Asset" /> */}
         </div>
         
         <div class="tail">

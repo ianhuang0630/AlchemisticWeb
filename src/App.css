@@ -3,28 +3,32 @@
 
 h1{
   font-family: "Quantico";
-  font-size: 4vw;
+  font-size:54px;
 }
 
 h2 {
   font-family: "Quantico";
-  font-size: 2.5vw;
+  font-size:48px;
 }
 
 h3{
-  font-family: "Lato"
+  font-family: "Lato";
+  font-size: 36px;
 }
 
 h4{
-  font-family: "Lato"
+  font-family: "Lato";
+  font-size: 24px;
 }
 
 .button-text{
-  font-family:"Quantico"
+  font-family:"Quantico";
+  font-size: 24px;  
 }
 
 .longform{
   font-family: "Lato";
+  font-size: 24px;
 }
 
 .App {
@@ -82,11 +86,11 @@ h4{
   font-family: 'Quantico';
   margin-left: 15px;
   font-weight: 800;
-  font-size: min(4vw, 30px);
+  font-size: min(5vw, 40px);
 }
 
 .web-logo{
-  width: 50px;
+  width: 60px;
 }
 
 .center{
@@ -141,7 +145,8 @@ h4{
 
 .demo-1{
   background: rgb(238,174,202);
-  background: radial-gradient(circle, #D3420D 0%, #F2B202 100%);
+  /* background: radial-gradient(circle, #D3420D 0%, #F2B202 100%); */
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   background-size: 400%, 400%;
   animation: gradient-animation 10s ease infinite;
   border-radius: 10px;
@@ -210,7 +215,8 @@ h4{
 
 .grad-text{
   /* font-size: 72px; */
-  background: radial-gradient(circle, #D3420D 0%, #F2B202 100%);
+  /* background: radial-gradient(circle, #D3420D 0%, #F2B202 100%); */
+  background: radial-gradient(circle, rgb(240, 141, 184) 0%, rgb(97, 160, 233) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
