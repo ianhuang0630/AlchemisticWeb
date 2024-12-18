@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/AlchemisticWeb/static/css/main.2cf242af.css",
-    "main.js": "/AlchemisticWeb/static/js/main.c06c220d.js",
-    "static/js/453.bb4c4b66.chunk.js": "/AlchemisticWeb/static/js/453.bb4c4b66.chunk.js",
-    "index.html": "/AlchemisticWeb/index.html",
-    "main.2cf242af.css.map": "/AlchemisticWeb/static/css/main.2cf242af.css.map",
-    "main.c06c220d.js.map": "/AlchemisticWeb/static/js/main.c06c220d.js.map",
-    "453.bb4c4b66.chunk.js.map": "/AlchemisticWeb/static/js/453.bb4c4b66.chunk.js.map"
+    "main.css": "/static/css/main.2cf242af.css",
+    "main.js": "/static/js/main.fe4c8b8f.js",
+    "static/js/453.bb4c4b66.chunk.js": "/static/js/453.bb4c4b66.chunk.js",
+    "index.html": "/index.html",
+    "main.2cf242af.css.map": "/static/css/main.2cf242af.css.map",
+    "main.fe4c8b8f.js.map": "/static/js/main.fe4c8b8f.js.map",
+    "453.bb4c4b66.chunk.js.map": "/static/js/453.bb4c4b66.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2cf242af.css",
-    "static/js/main.c06c220d.js"
+    "static/js/main.fe4c8b8f.js"
   ]
 }
