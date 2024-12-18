@@ -321,6 +321,8 @@ function VideoPlayer({ src }) {
       width="100%" 
       muted
       playsInline
+      webkit-playsinline="true"
+      preload="auto"
     />
   );
 }
@@ -442,7 +444,7 @@ function App() {
         <div className="demo-2">
           <div className="video-container">
             <div className="video-container-element">
-              <video className="video" src={process.env.PUBLIC_URL + '/assets/car_tunnel.mp4'} width="100%" autoPlay loop muted>
+              <video className="video" src={process.env.PUBLIC_URL + '/assets/car_tunnel.mp4'} width="100%" autoPlay playsInline loop muted>
               </video> 
             </div>
           </div>
@@ -520,7 +522,7 @@ function App() {
                 children:  <div>
         <div className="video-container">
             <div className="video-container-element">
-              <video className="video" src={process.env.PUBLIC_URL + '/assets/face_anim.mp4'} width="100%" autoPlay loop muted>
+              <video className="video" src={process.env.PUBLIC_URL + '/assets/face_anim.mp4'} width="100%" autoPlay playsInline loop muted>
               </video> 
             </div>
           </div>
@@ -533,8 +535,8 @@ function App() {
           
           <div class="video-container">
             <div class="video-container-element" >
-              <video class="video" src={process.env.PUBLIC_URL + '/assets/lighting_lotion.mp4'} width="100%" autoPlay loop muted>
-              </video> 
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/lighting_lotion.mp4'} width="100%" autoPlay playsInline loop muted>
+              </video>  
             </div>
           </div>   
                 </div> 
@@ -545,7 +547,7 @@ function App() {
                   
           <div class="video-container">
             <div class="video-container-element">
-              <video class="video" src={process.env.PUBLIC_URL + '/assets/katanas_animation.mp4'} width="100%" autoPlay loop muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/katanas_animation.mp4'} width="100%" autoPlay playsInline loop muted>
               </video> 
             </div>
           </div>
@@ -562,7 +564,7 @@ function App() {
 
         <div class="video-container">
             <div class="video-container-element">
-              <video class="video" src={process.env.PUBLIC_URL + '/assets/roses_blooming.mp4'} width="100%" autoPlay loop muted>
+              <video class="video" src={process.env.PUBLIC_URL + '/assets/roses_blooming.mp4'} width="100%" autoPlay playsInline loop muted>
               </video> 
             </div>
           </div>
