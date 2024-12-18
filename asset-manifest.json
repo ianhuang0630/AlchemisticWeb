@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/AlchemisticWeb/static/css/main.2cf242af.css",
-    "main.js": "/AlchemisticWeb/static/js/main.450fc96f.js",
+    "main.js": "/AlchemisticWeb/static/js/main.40cc22b0.js",
     "static/js/453.bb4c4b66.chunk.js": "/AlchemisticWeb/static/js/453.bb4c4b66.chunk.js",
     "index.html": "/AlchemisticWeb/index.html",
     "main.2cf242af.css.map": "/AlchemisticWeb/static/css/main.2cf242af.css.map",
-    "main.450fc96f.js.map": "/AlchemisticWeb/static/js/main.450fc96f.js.map",
+    "main.40cc22b0.js.map": "/AlchemisticWeb/static/js/main.40cc22b0.js.map",
     "453.bb4c4b66.chunk.js.map": "/AlchemisticWeb/static/js/453.bb4c4b66.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2cf242af.css",
-    "static/js/main.450fc96f.js"
+    "static/js/main.40cc22b0.js"
   ]
 }
