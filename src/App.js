@@ -50,6 +50,11 @@ function Navbar(props) {
 
 const EmailCollectionModal = ({ isVisible, onClose, onSubmit }) => {
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [organization, setOrganization] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
 
   const validateEmail = (email) => {
@@ -58,8 +63,13 @@ const EmailCollectionModal = ({ isVisible, onClose, onSubmit }) => {
 
   const handleSubmit = () => {
     if (validateEmail(email)) {
-      onSubmit(email);
+      onSubmit({ email, firstName, lastName, phoneNumber, organization, jobTitle });
       setEmail('');
+      setFirstName('');
+      setLastName('');
+      setPhoneNumber('');
+      setOrganization('');
+      setJobTitle('');
       setIsValidEmail(true);
       onClose();
     } else {
@@ -87,11 +97,14 @@ const EmailCollectionModal = ({ isVisible, onClose, onSubmit }) => {
     padding: '30px',
     borderRadius: '12px',
     width: '90%',
-    maxWidth: '400px'
+    maxWidth: '400px',
+    display: 'flex',           // Add these three lines
+    flexDirection: 'column',   // to create a flex container
+    alignItems: 'center' 
   };
 
   const inputStyle = {
-    width: '100%',
+    width: '95%',
     padding: '10px',
     marginTop: '20px',
     marginBottom: '10px',
@@ -110,18 +123,59 @@ const EmailCollectionModal = ({ isVisible, onClose, onSubmit }) => {
     <div style={modalStyle} onClick={onClose}>
       <div style={contentStyle} onClick={e => e.stopPropagation()}>
         <h2>Request a Demo</h2>
-        <p className='longform'>Please enter your email address and we'll get back to you shortly.</p>
+        <p className='longform'>Please enter your details and we'll get back to you shortly.</p>
+        <input
+          type="text"
+          placeholder="Your first name"
+          className="longform"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          style={{ ...inputStyle, fontSize: '18px' }}
+        />
+        <input
+          type="text"
+          placeholder="Your last name"
+          className="longform"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          style={{ ...inputStyle, fontSize: '18px' }}
+        />
         <input
           type="email"
-          placeholder="Enter your email"
+          placeholder="Your email"
+          className="longform"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
             setIsValidEmail(true);
           }}
-          style={inputStyle}
+          style={{ ...inputStyle, fontSize: '18px' }}
         />
         {!isValidEmail && <p style={{color: 'red', margin: '5px 0'}}>Please enter a valid email address</p>}
+        <input
+          type="text"
+          placeholder="Your phone number"
+          className="longform"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          style={{ ...inputStyle, fontSize: '18px' }}
+        />
+        <input
+          type="text"
+          placeholder="Your organization"
+          className="longform"
+          value={organization}
+          onChange={(e) => setOrganization(e.target.value)}
+          style={{ ...inputStyle, fontSize: '18px' }}
+        />
+        <input
+          type="text"
+          placeholder="Your job title"
+          className="longform"
+          value={jobTitle}
+          onChange={(e) => setJobTitle(e.target.value)}
+          style={{ ...inputStyle, fontSize: '18px' }}
+        />
         <div style={buttonContainerStyle}>
           <WhiteBlackButton text="Cancel" onClick={onClose} />
           <BlackWhiteButton text="Submit" onClick={handleSubmit} />
@@ -217,7 +271,7 @@ const Typewriter = ({ texts, fixedText, typingSpeed = 150, deletingSpeed = 100, 
       return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentIndex, texts, typingSpeed, deletingSpeed, pauseDuration]);
 
-  return <div className="typewriter"> {fixedText} {currentText}</div>;
+  return <div className="typewriter"> {fixedText} <span className="grad-text"> {currentText} </span> </div>;
 };
 
 
@@ -225,7 +279,7 @@ function VideoPlayer({ src }) {
   const videoRef = useRef(null);
   const playPromiseRef = useRef(null);
   const hasPlayedRef = useRef(false); // Track if video has played
-  
+
   useEffect(() => {
     const options = {
       root: null,
@@ -243,17 +297,6 @@ function VideoPlayer({ src }) {
             playPromiseRef.current.catch(() => {
               // Handle any play() errors silently
             });
-          }
-        } else if (!entry.isIntersecting) {
-          // Just pause without resetting time
-          if (playPromiseRef.current) {
-            playPromiseRef.current.then(() => {
-              videoRef.current.pause();
-            }).catch(() => {
-              // Handle any errors silently
-            });
-          } else {
-            videoRef.current.pause();
           }
         }
       });
@@ -325,10 +368,10 @@ function App() {
          
 
         <div className="main-content">
-          <h1> 
-          Unlock the infinite possibilities in your 3D assets.
+          <h1 style={{ whiteSpace: 'pre-line', margin: 0 }}> 
+            Unlock the infinite possibilities{'\n'}in your 3D assets.
           </h1>
-          <h3> 
+          <h3 className="caption"> 
             {company_name} turns your 3D projects into a server that automatically edits itself to fulfill your requests.
           </h3>
           <BlackWhiteButton text="Request a demo" onClick={handleDemoRequest} />
@@ -384,8 +427,8 @@ function App() {
         <div className="caption" style={{"marginTop": "30px"}}>
           <h3>
           {<Typewriter 
-              fixedText={"Need to find the right variation for "}
-              texts={["games?", "product visualizations?", "animations?"]}
+              fixedText={"Need to find the right one for "}
+              texts={["games?", "product viz?", "animations?"]}
                               typingSpeed={60} 
                               deletingSpeed={60} 
                               pauseDuration={1200} 
@@ -397,9 +440,9 @@ function App() {
         </div>
 
         <div className="demo-2">
-          <div class="video-container">
-            <div class="video-container-element">
-              <video class="video" src={process.env.PUBLIC_URL + '/assets/car_tunnel.mp4'} width="100%" autoPlay loop muted>
+          <div className="video-container">
+            <div className="video-container-element">
+              <video className="video" src={process.env.PUBLIC_URL + '/assets/car_tunnel.mp4'} width="100%" autoPlay loop muted>
               </video> 
             </div>
           </div>
@@ -415,31 +458,42 @@ function App() {
           <div className="three-tabs"> 
               <div className="benefits">
                 <div className="benefit">
-                  <h1> <BsJoystick /> </h1>
-                  <h2> Controllable </h2>
-                  <p className="longform">
-                  Control {company_name} with language and reference images.
-                  Open up the edited project and continue manually editing.
-                  
-                  {/* <b> You don't have to put in 100% effort to make the edit 10% better. </b> */}
-                  </p>
+
+                  <div className="benefit-content">
+                    <h1> <BsJoystick /> </h1>
+                    <div className="benefit-text">
+                      <h2 className="benefit-title"> Controllable </h2>
+                      <p className="longform">
+                      Control {company_name} with language and reference images.
+                      Open up the edited project and continue manually editing.
+                      </p>
+                    </div>
+                  </div> 
                 </div>
 
                 <div className="benefit">
-                  <h1> <BsLayoutWtf /> </h1>
-                  <h2> Varied </h2>
-                  <p className="longform">
-                  {company_name} generates many possible edits at once, giving you more choices to choose from. Who knows? Maybe you'll find something wonderful. 
-                  </p>
+                  <div className="benefit-content">
+                    <h1> <BsLayoutWtf /> </h1>
+                    <div className="benefit-text">
+                      <h2 className="benefit-title"> Varied </h2>
+                      <p className="longform">
+                      {company_name} generates many possible edits at once, giving you more choices to choose from. You'll find something wonderful. 
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="benefit">
-                  <h1> <BsLightning /></h1>
-                  <h2> Fast </h2>  
-                  <p className="longform">
-                  {company_name} generates edits in a few minutes. 
-                  Use any existing open or closed sourced LLM to balance between speed and performance.
-                  </p>
+                  <div className="benefit-content">
+                    <h1> <BsLightning /></h1>
+                    <div className="benefit-text">
+                      <h2 className="benefit-title"> Fast </h2>  
+                      <p className="longform">
+                      {company_name} generates edits in a few minutes. 
+                      Use any existing open or closed sourced LLM to balance between speed and performance.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
           </div>
@@ -462,11 +516,11 @@ function App() {
             [
               {
                 key: "4",
-                label: <h3> Blendshape Animation </h3>,
+                label: <h3 className="benefit-title"> Blendshape Animation </h3>,
                 children:  <div>
-        <div class="video-container">
-            <div class="video-container-element">
-              <video class="video" src={process.env.PUBLIC_URL + '/assets/face_anim.mp4'} width="100%" autoPlay loop muted>
+        <div className="video-container">
+            <div className="video-container-element">
+              <video className="video" src={process.env.PUBLIC_URL + '/assets/face_anim.mp4'} width="100%" autoPlay loop muted>
               </video> 
             </div>
           </div>
@@ -474,7 +528,7 @@ function App() {
               },
               {
                 key: '2',
-                label: <h3> Lighting </h3>,
+                label: <h3 className="benefit-title"> Lighting </h3>,
                 children: <div>
           
           <div class="video-container">
@@ -486,7 +540,7 @@ function App() {
                 </div> 
               },{
                 key: '1',
-                label: <h3>Materials</h3>,
+                label: <h3 className="benefit-title">Materials</h3>,
                 children: <div> 
                   
           <div class="video-container">
@@ -503,7 +557,7 @@ function App() {
               
               {
                 key: '3',
-                label: <h3> Procedural Geometry </h3>,
+                label: <h3 className="benefit-title"> Procedural Geometry </h3>,
                 children: <div>
 
         <div class="video-container">
